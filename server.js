@@ -1,21 +1,31 @@
 const express = require("express")
 const bodyParser = require("body-parser")
+require('dotenv').config();
+const dbFunctions = require('./handlers/dbFunctions.js');
+const mailer = require('./handlers/mailer.js');
+
 var cors = require('cors')
 const app = express();
-const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/static', express.static(__dirname + '/build/static'))
 app.get("/", (req, res) => {
-    res.send('Server is alive');
+    res.sendFile(__dirname + "/build/index.html")
 })
 
 app.post("/test", (req, res) => {
-
-console.log(req.body);
-res.sendStatus(200);
+    try{
+        Promise.all([dbFunctions.insertIntoForm(req.body), mailer.sendMail(req.body)])
+        .then((data)=>{
+            console.log(data);
+            res.sendStatus(200);
+        })
+    }catch(err){
+        console.error(err);
+    }
 })
 
 
 
-app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
+app.listen(3000, () => console.log(`Server running on port: 3000`));

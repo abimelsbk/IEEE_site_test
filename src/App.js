@@ -13,9 +13,7 @@ function App() {
 
   const handleClick = () => {
 
-    var url = "http://localhost:3001/test";
- 
-    axios.post(url, data)
+    axios.post('/test', data)
       .then(function (response) {
         console.log(response);
       })
