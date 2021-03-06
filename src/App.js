@@ -15,7 +15,7 @@ function App() {
 
     var url = "http://192.168.31.168:3001/test";
  
-    axios.post(url, {"jack":"hi"})
+    axios.post(url, data)
       .then(function (response) {
         console.log(response);
       })
