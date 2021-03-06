@@ -1,18 +1,21 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 var cors = require('cors')
-const app = express()
+const app = express();
+const PORT = 3001;
 app.use(cors());
-app.use("/static", express.static(__dirname + "/build/static/"));
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/build/index.html")
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+    res.send('Server is alive');
 })
 
-app.post("/test", function(req, res) {
-    console.log(req.body);
-    res.sendStatus(200);
+app.post("/devices", (req, res) => {
+
+console.log(req.body);
+res.sendStatus(200);
 })
 
-app.listen(process.env.PORT || 3001, function() {
-    console.log("Server is running on port 3000")
-})
+
+
+app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
