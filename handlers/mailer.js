@@ -17,7 +17,7 @@ module.exports= {
         return new Promise(async(resolve, reject)=>{
             let transporter = nodemailer.createTransport(transporterData);
             let info = await transporter.sendMail({
-                from: '<testIKSINTERNS@example.com',
+                from: '<' + process.cwd.MAIL_USER + '>',
                 to: record.email,
                 subject: "Confirmation Mail",
                 html: "<span>Your Subject:" + record.subject +" Your msg: "+ record.msg +"<span>",
@@ -26,7 +26,7 @@ module.exports= {
             console.log("Message sent: %s", info.messageId);        
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
             */
-           console.log("MAIL SENT");
+            console.log("MAIL SENT");
             resolve(info.messageId);
         })
     }
