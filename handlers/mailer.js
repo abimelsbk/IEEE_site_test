@@ -17,7 +17,7 @@ module.exports= {
         return new Promise(async(resolve, reject)=>{
             let transporter = nodemailer.createTransport(transporterData);
             let info = await transporter.sendMail({
-                from: '<testIKSINTERNS@example.com',
+                from: '<'+process.env.MAIL_USER+'>',
                 to: record.email,
                 subject: "Confirmation Mail",
                 html: "<span>Your Subject:" + record.subject +" Your msg: "+ record.msg +"<span>",
