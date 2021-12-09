@@ -1,4 +1,3 @@
-"use strict";
 const nodemailer = require("nodemailer");
 const transporterData = {
     host: process.env.MAIL_HOST,
@@ -22,10 +21,12 @@ module.exports= {
                 subject: "Confirmation Mail",
                 html: "<span>Your Subject:" + record.subject +" Your msg: "+ record.msg +"<span>",
             });
-            /*
-            console.log("Message sent: %s", info.messageId);        
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            */
+            
+            if(process.env.NODE_ENV!=="production"){
+                console.log("Message sent: %s", info.messageId);        
+                console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            }
+            
            console.log("MAIL SENT");
             resolve(info.messageId);
         })
