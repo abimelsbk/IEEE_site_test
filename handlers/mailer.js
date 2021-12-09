@@ -1,10 +1,10 @@
 const nodemailer = require("nodemailer");
 const transporterData = {
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    host: "smtp.ethereal.email",
+    port: 587,
     auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASSWORD
+        user: "alexandrea60@ethereal.email",
+        pass: "TYyn4h39zEFzNZAKCk"
     },
     tls:{
         rejectUnauthorized:false
@@ -22,10 +22,8 @@ module.exports= {
                 html: "<span>Your Subject:" + record.subject +" Your msg: "+ record.msg +"<span>",
             });
             
-            if(process.env.NODE_ENV!=="production"){
                 console.log("Message sent: %s", info.messageId);        
                 console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            }
             
            console.log("MAIL SENT");
             resolve(info.messageId);
